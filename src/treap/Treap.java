@@ -3,11 +3,10 @@ package treap;
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.SortedSet;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A basic implementation of a Treap: a probabilistically balanced binary search
@@ -23,7 +22,6 @@ public class Treap<E> extends AbstractSet<E> {
     private int size = 0;
     private TreapNode<E> root = null;
     private Comparator<? super E> comparator = null;
-    private static final Random rand = new Random();
 
     /**
      * Constructs a new, empty treap, sorted according to the natural ordering
@@ -88,7 +86,7 @@ public class Treap<E> extends AbstractSet<E> {
         }
 
         // Create a new node with the specified key and a random priority
-        TreapNode<E> newNode = new TreapNode<E>(e, rand.nextFloat());
+        TreapNode<E> newNode = new TreapNode<E>(e, ThreadLocalRandom.current().nextFloat());
 
         // Insert this node into the treap
         if (parent == null) {
@@ -117,9 +115,6 @@ public class Treap<E> extends AbstractSet<E> {
 
         size++;
 
-        /*/// DEBUG ////
-        checkHeap(root);
-        //// DEBUG ///*/
         return true;
     }
 
