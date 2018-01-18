@@ -12,6 +12,7 @@ import java.util.SortedSet;
 /**
  * A basic implementation of a Treap: a probabilistically balanced binary search
  * tree.
+ * @param <E>
  */
 public class Treap<E> extends AbstractSet<E> {
 
@@ -20,7 +21,7 @@ public class Treap<E> extends AbstractSet<E> {
     // - implement sublists
     // - implement removal in the iterator
     private int size = 0;
-    private TreapNode root = null;
+    private TreapNode<E> root = null;
     private Comparator<? super E> comparator = null;
     private static final Random rand = new Random();
 
@@ -132,6 +133,7 @@ public class Treap<E> extends AbstractSet<E> {
             throw new NullPointerException();
         }
 
+        @SuppressWarnings("unchecked")
         Comparable<? super E> key = (Comparable<? super E>) o;
 
         TreapNode<E> node = root;
@@ -153,6 +155,7 @@ public class Treap<E> extends AbstractSet<E> {
     }
 
     private boolean containsWithComparator(Object o) {
+        @SuppressWarnings("unchecked")
         E key = (E) o;
 
         TreapNode<E> node = root;
@@ -182,6 +185,7 @@ public class Treap<E> extends AbstractSet<E> {
     @Override
     public boolean remove(Object o) {
         // Find the node corresponding to the given key
+        @SuppressWarnings("unchecked")
         E key = (E) o;
 
         TreapNode<E> node = root;
@@ -215,10 +219,12 @@ public class Treap<E> extends AbstractSet<E> {
             private TreapNode<E> currentNode = null;
             private TreapNode<E> nextNode = firstNode();
 
+            @Override
             public boolean hasNext() {
                 return nextIndex < size();
             }
 
+            @Override
             public E next() {
                 currentNode = nextNode;
                 nextNode = higherNode(currentNode.key);
@@ -226,6 +232,7 @@ public class Treap<E> extends AbstractSet<E> {
                 return currentNode.key;
             }
 
+            @Override
             public void remove() {
                 /* TODO: implement lowerNode
                 TreapNode<E> previousNode = lowerNode(currentNode);
@@ -391,6 +398,7 @@ public class Treap<E> extends AbstractSet<E> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private int compare(E a, E b) {
         if (comparator != null) {
             return comparator.compare(a, b);
@@ -615,7 +623,7 @@ public class Treap<E> extends AbstractSet<E> {
 
         E key;
         float priority;
-        TreapNode parent, left, right;
+        TreapNode<E> parent, left, right;
 
         public TreapNode(E key, float priority) {
             this.key = key;
