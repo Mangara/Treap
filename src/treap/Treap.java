@@ -567,58 +567,6 @@ public class Treap<E> extends AbstractSet<E> {
         return higherNode;
     }
 
-    private void checkHeap(TreapNode<E> node) {
-        if (node == null) {
-            return;
-        }
-
-        if ((node.left != null && node.priority > node.left.priority)
-                || (node.right != null && node.priority > node.right.priority)) {
-            throw new AssertionError("Heap property violated!");
-        } else {
-            //System.out.println("Priority: " + node.priority + " Left child: " + (node.left == null ? "null" : node.left.priority) + " Right child: " + (node.right == null ? "null" : node.right.priority));
-        }
-
-        checkHeap(node.left);
-        checkHeap(node.right);
-    }
-
-    double getMeanWeightBalanceFactor() {
-        HashMap<TreapNode<E>, Double> weights = new HashMap<TreapNode<E>, Double>(size);
-        HashMap<TreapNode<E>, Integer> sizes = new HashMap<TreapNode<E>, Integer>(size);
-
-        sizes.put(null, 0);
-
-        computeWeights(weights, sizes, root);
-
-        assert sizes.get(root) == size;
-
-        double sum = 0;
-
-        for (Double w : weights.values()) {
-            sum += w;
-        }
-
-        return sum / size;
-    }
-
-    private void computeWeights(HashMap<TreapNode<E>, Double> weights, HashMap<TreapNode<E>, Integer> sizes, TreapNode<E> node) {
-        if (node == null) {
-            return;
-        }
-
-        computeWeights(weights, sizes, node.left);
-        computeWeights(weights, sizes, node.right);
-
-        int nLeft = sizes.get(node.left);
-        int nRight = sizes.get(node.right);
-        int n = 1 + nLeft + nRight;
-
-        sizes.put(node, n);
-
-        weights.put(node, 2 * (1 + Math.min(nLeft, nRight)) / (double) (1 + n));
-    }
-
     private class TreapNode<E> {
 
         E key;

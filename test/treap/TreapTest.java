@@ -14,7 +14,7 @@ public class TreapTest {
     private Treap<Integer> treap;
     private TreeSet<Integer> set;
     private final int RANGE = 100;
-    private int nTestRepetitions = 2 * RANGE;
+    private final int nTestRepetitions = 2 * RANGE;
 
     public TreapTest() {
     }
@@ -50,8 +50,6 @@ public class TreapTest {
             assertEquals(expResult, result);
             checkEquality(treap, set);
         }
-
-        System.out.println("Balance factor: " + treap.getMeanWeightBalanceFactor());
     }
 
     @Test
@@ -95,8 +93,8 @@ public class TreapTest {
     public void testIterator() {
         System.out.println("iterator");
 
-        Iterator treapIt = treap.iterator();
-        Iterator setIt = set.iterator();
+        Iterator<Integer> treapIt = treap.iterator();
+        Iterator<Integer> setIt = set.iterator();
 
         while (treapIt.hasNext()) {
             assertEquals(treapIt.hasNext(), setIt.hasNext());
