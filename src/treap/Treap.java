@@ -15,10 +15,6 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Treap<E> extends AbstractSet<E> {
 
-    // Possible improvements:
-    // - implement iteration in linear time by letting the right child pointer point to your successor if you have no right child
-    // - implement sublists
-    // - implement removal in the iterator
     private int size = 0;
     private TreapNode<E> root = null;
     private Comparator<? super E> comparator = null;

@@ -1,0 +1,4 @@
+Possible improvements:
+- implement iteration in linear time by letting the right child pointer point to your successor if you have no right child
+- implement sublists
+- implement removal in the iterator
